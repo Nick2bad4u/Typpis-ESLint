@@ -49,6 +49,7 @@ jobs:
 
             - name: Install dependencies
               run: npm ci --force
+              continue-on-error: true
 
             - name: Lint (recommended)
               run: npm run lint
