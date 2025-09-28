@@ -48,20 +48,16 @@ jobs:
                   cache: "npm"
 
             - name: Install dependencies
-              run: npm ci --force
-              continue-on-error: true
+              run: npm ci
 
             - name: Lint (recommended)
               run: npm run lint
-              continue-on-error: true
 
             - name: Lint (strict)
               run: npm run lint:all
-              continue-on-error: true
 
             - name: Run tests
               run: npm test
-              continue-on-error: true
 
             - name: Determine release metadata
               id: vars
@@ -72,44 +68,52 @@ jobs:
                   INPUT_NPM_TAG: ${{ inputs.npm_tag }}
                   INPUT_DRY_RUN: ${{ inputs.dry_run }}
               run: |
-                  set -euo pipefail
-                  PACKAGE_VERSION=$(node -p "require('./package.json').version")
-                  echo "package_version=$PACKAGE_VERSION" >> "$GITHUB_OUTPUT"
+                  node <<'NODE'
+                  const fs = require('node:fs');
+                  const path = require('node:path');
 
-                  if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ]; then
-                    if [ -z "${INPUT_VERSION}" ]; then
-                      echo 'The version input is required when using workflow_dispatch.' >&2
-                      exit 1
-                    fi
+                  const eventName = process.env.GITHUB_EVENT_NAME ?? '';
+                  const refName = process.env.GITHUB_REF_NAME ?? '';
+                  const inputVersion = process.env.INPUT_VERSION ?? '';
+                  const inputNpmTag = process.env.INPUT_NPM_TAG ?? '';
+                  const rawDryRun = String(process.env.INPUT_DRY_RUN ?? '').toLowerCase();
+                  const dryRun = rawDryRun === 'true';
 
-                    if [ "$INPUT_VERSION" != "$PACKAGE_VERSION" ]; then
-                      echo "Input version $INPUT_VERSION does not match package.json version $PACKAGE_VERSION." >&2
-                      exit 1
-                    }
+                  const pkg = require(path.resolve(process.cwd(), 'package.json'));
+                  const packageVersion = pkg.version;
 
-                    RELEASE_TAG="v$INPUT_VERSION"
-                  else
-                    RELEASE_TAG="$GITHUB_REF_NAME"
-                    if [ "$RELEASE_TAG" != "v$PACKAGE_VERSION" ]; then
-                      echo "Git tag $RELEASE_TAG does not match package.json version $PACKAGE_VERSION." >&2
-                      exit 1
-                    fi
-                  fi
+                  if (!packageVersion) {
+                      throw new Error('package.json is missing a version field.');
+                  }
 
-                  if [ "${INPUT_DRY_RUN}" = "true" ]; then
-                    echo 'dry_run=true' >> "$GITHUB_OUTPUT"
-                  else
-                    echo 'dry_run=false' >> "$GITHUB_OUTPUT"
-                  fi
+                  let releaseTag;
+                  if (eventName === 'workflow_dispatch') {
+                      if (!inputVersion) {
+                          throw new Error('The version input is required when using workflow_dispatch.');
+                      }
 
-                  if [ -n "${INPUT_NPM_TAG}" ]; then
-                    DIST_TAG="$INPUT_NPM_TAG"
-                  else
-                    DIST_TAG='latest'
-                  fi
+                      if (inputVersion !== packageVersion) {
+                          throw new Error(`Input version ${inputVersion} does not match package.json version ${packageVersion}.`);
+                      }
 
-                  echo "release_tag=$RELEASE_TAG" >> "$GITHUB_OUTPUT"
-                  echo "dist_tag=$DIST_TAG" >> "$GITHUB_OUTPUT"
+                      releaseTag = `v${inputVersion}`;
+                  } else {
+                      releaseTag = refName;
+                      if (releaseTag !== `v${packageVersion}`) {
+                          throw new Error(`Git tag ${releaseTag} does not match package.json version ${packageVersion}.`);
+                      }
+                  }
+
+                  const distTag = inputNpmTag ? inputNpmTag : 'latest';
+                  const outputs = [
+                      `package_version=${packageVersion}`,
+                      `dry_run=${dryRun ? 'true' : 'false'}`,
+                      `dist_tag=${distTag}`,
+                      `release_tag=${releaseTag}`
+                  ];
+
+                  fs.appendFileSync(process.env.GITHUB_OUTPUT, `${outputs.join('\n')}\n`);
+                  NODE
 
             - name: Inspect published artifact
               run: npm pack --dry-run
@@ -123,8 +127,8 @@ jobs:
               run: |
                   set -euo pipefail
                   if [ -z "$NPM_TOKEN" ]; then
-                    echo 'NPM_TOKEN secret is not configured. Set it in repository secrets.' >&2
-                    exit 1
+                      echo 'NPM_TOKEN secret is not configured. Set it in repository secrets.' >&2
+                      exit 1
                   fi
                   npm config set //registry.npmjs.org/:_authToken "$NPM_TOKEN"
                   npm publish --access public --tag "$NPM_DIST_TAG" --provenance
@@ -142,35 +146,35 @@ jobs:
                       const repo = context.repo.repo;
 
                       const releases = await github.paginate(github.rest.repos.listReleases, {
-                        owner,
-                        repo
+                          owner,
+                          repo
                       });
 
                       if (releases.some((release) => release.tag_name === tag)) {
-                        core.info(`Release ${tag} already exists. Skipping creation.`);
-                        return;
+                          core.info(`Release ${tag} already exists. Skipping creation.`);
+                          return;
                       }
 
                       let body = '';
                       try {
-                        const notes = await github.rest.repos.generateReleaseNotes({
-                          owner,
-                          repo,
-                          tag_name: tag,
-                          target_commitish: process.env.TARGET_COMMIT
-                        });
-                        body = notes.data.body ?? '';
+                          const notes = await github.rest.repos.generateReleaseNotes({
+                              owner,
+                              repo,
+                              tag_name: tag,
+                              target_commitish: process.env.TARGET_COMMIT
+                          });
+                          body = notes.data.body ?? '';
                       } catch (error) {
-                        core.warning(`Could not generate release notes automatically: ${error.message}`);
+                          core.warning(`Could not generate release notes automatically: ${error.message}`);
                       }
 
                       await github.rest.repos.createRelease({
-                        owner,
-                        repo,
-                        tag_name: tag,
-                        name: tag,
-                        body,
-                        draft: false,
-                        prerelease: false,
-                        target_commitish: process.env.TARGET_COMMIT
+                          owner,
+                          repo,
+                          tag_name: tag,
+                          name: tag,
+                          body,
+                          draft: false,
+                          prerelease: false,
+                          target_commitish: process.env.TARGET_COMMIT
                       });
