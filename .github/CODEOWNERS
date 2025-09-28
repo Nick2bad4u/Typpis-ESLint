@@ -1,0 +1,6 @@
+# CODEOWNERS file for Uptime Watcher
+# This file defines who owns which parts of the codebase
+# See: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Global fallback - all code not covered by specific rules
+* @Nick2bad4u

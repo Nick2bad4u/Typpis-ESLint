@@ -1,0 +1,147 @@
+{
+    "$schema": "https://www.schemastore.org/tsconfig.json",
+    "compilerOptions": {
+        "allowArbitraryExtensions": false,
+        "allowJs": false,
+        "allowSyntheticDefaultImports": true,
+        "allowUmdGlobalAccess": false,
+        "allowUnreachableCode": false,
+        "allowUnusedLabels": false,
+        "alwaysStrict": true,
+        "baseUrl": ".",
+        "checkJs": false,
+        "declaration": true,
+        "declarationDir": ".cache/builds/app/types",
+        "declarationMap": true,
+        "diagnostics": false,
+        "disableSizeLimit": true,
+        "downlevelIteration": true,
+        "emitDecoratorMetadata": false,
+        "esModuleInterop": true,
+        "exactOptionalPropertyTypes": true,
+        "experimentalDecorators": false,
+        "extendedDiagnostics": false,
+        "forceConsistentCasingInFileNames": true,
+        "importHelpers": true,
+        "incremental": true,
+        "isolatedDeclarations": true,
+        "isolatedModules": true,
+        "jsx": "react-jsx",
+        "jsxImportSource": "react",
+        "lib": [
+            "DOM",
+            "ESNext"
+        ],
+        "listEmittedFiles": false,
+        "listFiles": false,
+        "module": "ESNext",
+        "moduleDetection": "auto",
+        "moduleResolution": "bundler",
+        "newLine": "crlf",
+        "noCheck": false,
+        "noEmit": false,
+        "noErrorTruncation": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitAny": true,
+        "noImplicitOverride": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "noImplicitUseStrict": false,
+        "noPropertyAccessFromIndexSignature": true,
+        "noStrictGenericChecks": false,
+        "noUncheckedIndexedAccess": true,
+        "noUncheckedSideEffectImports": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "outDir": ".cache/builds/app",
+        "paths": {
+            "@app/*": [
+                "src/*"
+            ],
+            "@electron/*": [
+                "electron/*"
+            ],
+            "@shared/*": [
+                "shared/*"
+            ]
+        },
+        "plugins": [
+            {
+                "name": "@styled/typescript-styled-plugin"
+            }
+        ],
+        "pretty": true,
+        "removeComments": false,
+        "resolveJsonModule": true,
+        "resolvePackageJsonExports": true,
+        "resolvePackageJsonImports": true,
+        "skipDefaultLibCheck": true,
+        "skipLibCheck": true,
+        "sourceMap": true,
+        "strict": true,
+        "strictBindCallApply": true,
+        "strictBuiltinIteratorReturn": true,
+        "strictFunctionTypes": true,
+        "strictNullChecks": true,
+        "strictPropertyInitialization": true,
+        "suppressExcessPropertyErrors": false,
+        "suppressImplicitAnyIndexErrors": false,
+        "target": "ES2024",
+        "tsBuildInfoFile": "./.cache/tsconfig.tsbuildinfo",
+        "types": [
+            "@testing-library/jest-dom",
+            "electron",
+            "node",
+            "react-dom",
+            "react",
+            "vite/client",
+            "vitest/globals"
+        ],
+        "useDefineForClassFields": true,
+        "useUnknownInCatchVariables": true,
+        "verbatimModuleSyntax": true
+    },
+    "exclude": [
+        "**/dist",
+        "**/dist/**",
+        "**/docs/**",
+        "**/node_modules",
+        "**/node_modules/@types/**",
+        "**/node_modules/@typescript-eslint/**",
+        "**/node_modules/**",
+        "**/node_modules/typescript/**",
+        "coverage",
+        "dist",
+        "electron",
+        "shared",
+        "node_modules",
+        "node_modules/**/*",
+        "out",
+        "release",
+        "src/**/*.test.ts",
+        "src/**/*.test.tsx",
+        "src/test/**"
+    ],
+    "include": [
+        "global.d.ts",
+        "src/**/*",
+        "vite.config.ts",
+        "vite/client",
+        "vitest.config.ts",
+        "vitest.shared.config.ts",
+        "vitest.storybook.config.ts",
+        "storybook/vitest.setup.ts",
+        "tailwind.config.mjs"
+    ],
+    "references": [
+        {
+            "path": "./tsconfig.shared.json"
+        },
+        {
+            "path": "./tsconfig.electron.json"
+        }
+    ],
+    "typeAcquisition": {
+        "enable": true
+    }
+}

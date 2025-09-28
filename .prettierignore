@@ -1,0 +1,42 @@
+# Ignore libs folder recursively
+libs/
+
+# Ignore node_modules
+node_modules/
+
+# Ignore other common folders that shouldn't be formatted
+build/
+coverage/
+*.min.js
+*.min.css
+dist/
+docs/docusaurus/docs/
+docs/docusaurus/build/
+docs/docusaurus/.docusaurus/
+docs/packages/
+docs/TSDoc/
+
+# Ignore Change Logs
+**/CHANGELOG.md
+
+# Ignore package in electron-app
+electron-app/package.json
+electron-app/package-lock.json
+package-lock.json
+package.json
+
+# Ignore specific files
+**/coverage-results.json
+
+# Ignore prompts (Changed " to ' for tools messes up agents)
+**/**.prompt.md
+**/**.prompt-copy.md
+**/**.prompt.**.md
+**/**.chatmode.md
+
+# Ignore Sonar properties (not compatible with prettier-ini parser)
+sonar-project.properties
+*.mdx
+
+# Prettier fails on this for some reason
+useMonitorTypesStore.100percent.test.ts
