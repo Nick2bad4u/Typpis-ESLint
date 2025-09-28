@@ -832,6 +832,6 @@ dist-bench/
 dist-configs/
 dist-playwright/
 .vscode/mcp.json
-
+!lib/
 *storybook.log
 storybook-static
