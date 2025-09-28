@@ -1,0 +1,29 @@
+# actionlint: allow-secrets NPM_TOKEN
+name: Release
+
+on:
+    push:
+        tags:
+            - "v*.*.*"
+    workflow_dispatch:
+        inputs:
+            version:
+                description: "Package version to publish (for example: 0.2.0). Must match package.json."
+                required: true
+            npm_tag:
+                description: "npm dist-tag used for publication."
+                default: latest
+                required: false
+            dry_run:
+                description: "Skip npm publish and GitHub release creation."
+                type: boolean
+                default: false
+
+jobs:
+    publish:
+        uses: ./.github/workflows/reusable-publish.yml
+        with:
+            version: ${{ inputs.version }}
+            npm_tag: ${{ inputs.npm_tag }}
+            dry_run: ${{ inputs.dry_run }}
+        secrets: inherit

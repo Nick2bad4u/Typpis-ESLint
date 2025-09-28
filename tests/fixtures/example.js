@@ -16,9 +16,9 @@ export const exampleSum = (first, second) => first + second;
  * @returns The combined total.
  */
 export const exampleSumList = (values) =>
-    values.reduce((total, value) => total + value, 0);
+  values.reduce((total, value) => total + value, 0);
 
 export const example = {
-    exampleSum,
-    exampleSumList,
+  exampleSum,
+  exampleSumList,
 };
