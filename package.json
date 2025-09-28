@@ -1,6 +1,6 @@
 {
   "name": "eslint-config-typpis-eslint",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Production-ready ESLint flat config that bundles the full Typpis plugin stack for TypeScript, React, and Electron apps.",
   "license": "MIT",
   "author": "Typpis Maintainers",
