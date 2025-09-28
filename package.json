@@ -1,0 +1,849 @@
+{
+  "name": "eslint-config-Typpis-ESLint",
+  "version": "0.1.0",
+  "description": "Production-ready ESLint flat config that bundles the full Typpis plugin stack for TypeScript, React, and Electron apps.",
+  "license": "MIT",
+  "author": "Typpis Maintainers",
+  "homepage": "https://github.com/Nick2bad4u/Typpis-ESLint#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nick2bad4u/Typpis-ESLint.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Nick2bad4u/Typpis-ESLint/issues"
+  },
+  "engines": {
+    "node": ">=18.18"
+  },
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./recommended": "./lib/configs/recommended.js",
+    "./all": "./lib/configs/all.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "CHANGELOG.md",
+    "LICENSE",
+    "README.md",
+    "docs/",
+    "index.js",
+    "lib/",
+    ".eslintrc.example.js"
+  ],
+  "scripts": {
+    "lint": "eslint --max-warnings=0 --no-error-on-unmatched-pattern --config lib/configs/recommended.js \"tests/fixtures/**/*\"",
+    "lint:fix": "eslint --config lib/configs/recommended.js --no-error-on-unmatched-pattern --fix \"tests/fixtures/**/*\"",
+    "lint:all": "node scripts/run-lint-all.mjs",
+    "check:plugins": "node tests/assert-all-plugins.mjs",
+    "test": "node tests/run-tests.mjs",
+    "prepare": "npm run lint"
+  },
+  "keywords": [
+    "eslint",
+    "eslint-config",
+    "typescript",
+    "react",
+    "electron",
+    "security",
+    "flat-config",
+    "typpis"
+  ],
+  "dependencies": {
+    "@arthurgeron/eslint-plugin-react-usememo": "2.5.0",
+    "@docusaurus/eslint-plugin": "3.9.1",
+    "@eslint-community/eslint-plugin-eslint-comments": "4.5.0",
+    "@eslint-react/eslint-plugin": "2.0.1",
+    "@eslint/compat": "1.4.0",
+    "@eslint/css": "0.11.1",
+    "@eslint/js": "9.36.0",
+    "@eslint/json": "0.13.2",
+    "@eslint/markdown": "7.3.0",
+    "@html-eslint/eslint-plugin": "0.46.2",
+    "@html-eslint/parser": "0.46.2",
+    "@jcoreio/eslint-plugin-implicit-dependencies": "1.2.0",
+    "@metamask/eslint-plugin-design-tokens": "1.1.1",
+    "@microsoft/eslint-plugin-sdl": "1.1.0",
+    "@rushstack/eslint-plugin-security": "0.11.0",
+    "@typescript-eslint/eslint-plugin": "8.44.1",
+    "@typescript-eslint/parser": "8.44.1",
+    "@typescript-eslint/utils": "8.44.1",
+    "@vitest/eslint-plugin": "1.3.13",
+    "eslint": "9.36.0",
+    "eslint-config-flat-gitignore": "2.1.0",
+    "eslint-config-prettier": "10.1.8",
+    "eslint-import-resolver-typescript": "4.4.4",
+    "eslint-mdx": "3.6.2",
+    "eslint-plugin-antfu": "3.1.1",
+    "eslint-plugin-array-func": "5.1.0",
+    "eslint-plugin-better-tailwindcss": "3.7.9",
+    "eslint-plugin-boundaries": "5.0.1",
+    "eslint-plugin-canonical": "5.1.3",
+    "eslint-plugin-clean-code": "0.1.12",
+    "eslint-plugin-clean-timer": "1.0.2",
+    "eslint-plugin-comment-length": "2.2.2",
+    "eslint-plugin-compat": "6.0.2",
+    "eslint-plugin-css-modules": "2.12.0",
+    "eslint-plugin-depend": "1.3.1",
+    "eslint-plugin-deprecation": "3.0.0",
+    "eslint-plugin-etc": "2.0.3",
+    "eslint-plugin-exception-handling": "1.5.4",
+    "eslint-plugin-file-progress": "3.0.2",
+    "eslint-plugin-filename-export": "2.0.0",
+    "eslint-plugin-format-sql": "1.1.1",
+    "eslint-plugin-function-name": "2.0.5",
+    "eslint-plugin-functional": "9.0.2",
+    "eslint-plugin-goodeffects": "1.0.2",
+    "eslint-plugin-granular-selectors": "1.4.0",
+    "eslint-plugin-import-x": "4.16.1",
+    "eslint-plugin-import-zod": "1.2.0",
+    "eslint-plugin-istanbul": "0.1.2",
+    "eslint-plugin-json-schema-validator": "5.4.1",
+    "eslint-plugin-jsonc": "2.20.1",
+    "eslint-plugin-jsx-a11y": "6.10.2",
+    "eslint-plugin-jsx-plus": "0.1.0",
+    "eslint-plugin-listeners": "1.5.1",
+    "eslint-plugin-loadable-imports": "1.0.1",
+    "eslint-plugin-math": "0.13.0",
+    "eslint-plugin-mdx": "3.6.2",
+    "eslint-plugin-module-interop": "0.3.1",
+    "eslint-plugin-n": "17.23.1",
+    "eslint-plugin-neverthrow": "1.1.4",
+    "eslint-plugin-nitpick": "0.12.0",
+    "eslint-plugin-no-barrel-files": "1.2.2",
+    "eslint-plugin-no-constructor-bind": "2.0.4",
+    "eslint-plugin-no-explicit-type-exports": "0.12.1",
+    "eslint-plugin-no-function-declare-after-return": "1.1.0",
+    "eslint-plugin-no-hardcoded-strings": "1.0.0",
+    "eslint-plugin-no-lookahead-lookbehind-regexp": "0.4.0",
+    "eslint-plugin-no-only-tests": "3.3.0",
+    "eslint-plugin-no-secrets": "2.2.1",
+    "eslint-plugin-no-unary-plus": "0.3.1",
+    "eslint-plugin-no-unawaited-dot-catch-throw": "0.1.1",
+    "eslint-plugin-no-unsanitized": "4.1.4",
+    "eslint-plugin-no-use-extend-native": "0.7.2",
+    "eslint-plugin-observers": "1.0.1",
+    "eslint-plugin-package-json": "0.56.3",
+    "eslint-plugin-paths": "1.1.0",
+    "eslint-plugin-perfectionist": "4.15.0",
+    "eslint-plugin-playwright": "2.2.2",
+    "eslint-plugin-prefer-arrow": "1.2.3",
+    "eslint-plugin-prettier": "5.5.4",
+    "eslint-plugin-promise": "7.2.1",
+    "eslint-plugin-react": "7.37.5",
+    "eslint-plugin-react-compiler": "19.1.0-rc.2",
+    "eslint-plugin-react-dom": "2.0.1",
+    "eslint-plugin-react-form-fields": "1.2.22",
+    "eslint-plugin-react-hook-form": "0.3.1",
+    "eslint-plugin-react-hooks": "5.2.0",
+    "eslint-plugin-react-hooks-addons": "0.5.0",
+    "eslint-plugin-react-hooks-extra": "2.0.1",
+    "eslint-plugin-react-naming-convention": "2.0.1",
+    "eslint-plugin-react-perf": "3.3.3",
+    "eslint-plugin-react-prefer-function-component": "4.0.1",
+    "eslint-plugin-react-refresh": "0.4.22",
+    "eslint-plugin-react-require-testid": "1.0.4",
+    "eslint-plugin-react-useeffect": "1.0.12",
+    "eslint-plugin-react-web-api": "2.0.1",
+    "eslint-plugin-redos": "4.5.0",
+    "eslint-plugin-regexp": "2.10.0",
+    "eslint-plugin-require-jsdoc": "1.0.4",
+    "eslint-plugin-safe-jsx": "1.1.1",
+    "eslint-plugin-security": "3.0.1",
+    "eslint-plugin-sonarjs": "3.0.5",
+    "eslint-plugin-sort-class-members": "1.21.0",
+    "eslint-plugin-sort-destructure-keys": "2.0.0",
+    "eslint-plugin-sort-keys-fix": "1.1.2",
+    "eslint-plugin-sort-react-dependency-arrays": "1.0.0",
+    "eslint-plugin-sql-template": "3.1.0",
+    "eslint-plugin-ssr-friendly": "1.3.0",
+    "eslint-plugin-storybook": "9.1.8",
+    "eslint-plugin-styled-components-a11y": "2.2.1",
+    "eslint-plugin-switch-case": "3.0.1",
+    "eslint-plugin-tailwindcss": "3.18.2",
+    "eslint-plugin-testing-library": "7.10.0",
+    "eslint-plugin-toml": "0.12.0",
+    "eslint-plugin-toplevel": "1.2.0",
+    "eslint-plugin-total-functions": "7.1.0",
+    "eslint-plugin-tsdoc": "0.4.0",
+    "eslint-plugin-undefined-css-classes": "0.1.4",
+    "eslint-plugin-unicorn": "61.0.2",
+    "eslint-plugin-unused-imports": "4.2.0",
+    "eslint-plugin-usememo-recommendations": "1.0.2",
+    "eslint-plugin-validate-jsx-nesting": "0.1.1",
+    "eslint-plugin-write-good-comments": "0.2.0",
+    "eslint-plugin-xss": "0.1.12",
+    "eslint-plugin-yml": "1.18.0",
+    "eslint-plugin-zod": "1.4.0",
+    "globals": "16.4.0",
+    "jsonc-eslint-parser": "2.4.1",
+    "prettier": "3.6.2",
+    "storybook": "8.3.4",
+    "tailwindcss": "3.4.10",
+    "toml-eslint-parser": "0.10.0",
+    "typescript": "5.9.2",
+    "yaml-eslint-parser": "1.3.0"
+  },
+  "peerDependencies": {
+    "@arthurgeron/eslint-plugin-react-usememo": "2.5.0",
+    "@docusaurus/eslint-plugin": "3.9.1",
+    "@eslint-community/eslint-plugin-eslint-comments": "4.5.0",
+    "@eslint-react/eslint-plugin": "2.0.1",
+    "@eslint/compat": "1.4.0",
+    "@eslint/css": "0.11.1",
+    "@eslint/js": "9.36.0",
+    "@eslint/json": "0.13.2",
+    "@eslint/markdown": "7.3.0",
+    "@html-eslint/eslint-plugin": "0.46.2",
+    "@html-eslint/parser": "0.46.2",
+    "@jcoreio/eslint-plugin-implicit-dependencies": "1.2.0",
+    "@metamask/eslint-plugin-design-tokens": "1.1.1",
+    "@microsoft/eslint-plugin-sdl": "1.1.0",
+    "@rushstack/eslint-plugin-security": "0.11.0",
+    "@typescript-eslint/eslint-plugin": "8.44.1",
+    "@typescript-eslint/parser": "8.44.1",
+    "@typescript-eslint/utils": "8.44.1",
+    "@vitest/eslint-plugin": "1.3.13",
+    "eslint": "9.36.0",
+    "eslint-config-flat-gitignore": "2.1.0",
+    "eslint-config-prettier": "10.1.8",
+    "eslint-import-resolver-typescript": "4.4.4",
+    "eslint-mdx": "3.6.2",
+    "eslint-plugin-antfu": "3.1.1",
+    "eslint-plugin-array-func": "5.1.0",
+    "eslint-plugin-better-tailwindcss": "3.7.9",
+    "eslint-plugin-boundaries": "5.0.1",
+    "eslint-plugin-canonical": "5.1.3",
+    "eslint-plugin-clean-code": "0.1.12",
+    "eslint-plugin-clean-timer": "1.0.2",
+    "eslint-plugin-comment-length": "2.2.2",
+    "eslint-plugin-compat": "6.0.2",
+    "eslint-plugin-css-modules": "2.12.0",
+    "eslint-plugin-depend": "1.3.1",
+    "eslint-plugin-deprecation": "3.0.0",
+    "eslint-plugin-etc": "2.0.3",
+    "eslint-plugin-exception-handling": "1.5.4",
+    "eslint-plugin-file-progress": "3.0.2",
+    "eslint-plugin-filename-export": "2.0.0",
+    "eslint-plugin-format-sql": "1.1.1",
+    "eslint-plugin-function-name": "2.0.5",
+    "eslint-plugin-functional": "9.0.2",
+    "eslint-plugin-goodeffects": "1.0.2",
+    "eslint-plugin-granular-selectors": "1.4.0",
+    "eslint-plugin-import-x": "4.16.1",
+    "eslint-plugin-import-zod": "1.2.0",
+    "eslint-plugin-istanbul": "0.1.2",
+    "eslint-plugin-json-schema-validator": "5.4.1",
+    "eslint-plugin-jsonc": "2.20.1",
+    "eslint-plugin-jsx-a11y": "6.10.2",
+    "eslint-plugin-jsx-plus": "0.1.0",
+    "eslint-plugin-listeners": "1.5.1",
+    "eslint-plugin-loadable-imports": "1.0.1",
+    "eslint-plugin-math": "0.13.0",
+    "eslint-plugin-mdx": "3.6.2",
+    "eslint-plugin-module-interop": "0.3.1",
+    "eslint-plugin-n": "17.23.1",
+    "eslint-plugin-neverthrow": "1.1.4",
+    "eslint-plugin-nitpick": "0.12.0",
+    "eslint-plugin-no-barrel-files": "1.2.2",
+    "eslint-plugin-no-constructor-bind": "2.0.4",
+    "eslint-plugin-no-explicit-type-exports": "0.12.1",
+    "eslint-plugin-no-function-declare-after-return": "1.1.0",
+    "eslint-plugin-no-hardcoded-strings": "1.0.0",
+    "eslint-plugin-no-lookahead-lookbehind-regexp": "0.4.0",
+    "eslint-plugin-no-only-tests": "3.3.0",
+    "eslint-plugin-no-secrets": "2.2.1",
+    "eslint-plugin-no-unary-plus": "0.3.1",
+    "eslint-plugin-no-unawaited-dot-catch-throw": "0.1.1",
+    "eslint-plugin-no-unsanitized": "4.1.4",
+    "eslint-plugin-no-use-extend-native": "0.7.2",
+    "eslint-plugin-observers": "1.0.1",
+    "eslint-plugin-package-json": "0.56.3",
+    "eslint-plugin-paths": "1.1.0",
+    "eslint-plugin-perfectionist": "4.15.0",
+    "eslint-plugin-playwright": "2.2.2",
+    "eslint-plugin-prefer-arrow": "1.2.3",
+    "eslint-plugin-prettier": "5.5.4",
+    "eslint-plugin-promise": "7.2.1",
+    "eslint-plugin-react": "7.37.5",
+    "eslint-plugin-react-compiler": "19.1.0-rc.2",
+    "eslint-plugin-react-dom": "2.0.1",
+    "eslint-plugin-react-form-fields": "1.2.22",
+    "eslint-plugin-react-hook-form": "0.3.1",
+    "eslint-plugin-react-hooks": "5.2.0",
+    "eslint-plugin-react-hooks-addons": "0.5.0",
+    "eslint-plugin-react-hooks-extra": "2.0.1",
+    "eslint-plugin-react-naming-convention": "2.0.1",
+    "eslint-plugin-react-perf": "3.3.3",
+    "eslint-plugin-react-prefer-function-component": "4.0.1",
+    "eslint-plugin-react-refresh": "0.4.22",
+    "eslint-plugin-react-require-testid": "1.0.4",
+    "eslint-plugin-react-useeffect": "1.0.12",
+    "eslint-plugin-react-web-api": "2.0.1",
+    "eslint-plugin-redos": "4.5.0",
+    "eslint-plugin-regexp": "2.10.0",
+    "eslint-plugin-require-jsdoc": "1.0.4",
+    "eslint-plugin-safe-jsx": "1.1.1",
+    "eslint-plugin-security": "3.0.1",
+    "eslint-plugin-sonarjs": "3.0.5",
+    "eslint-plugin-sort-class-members": "1.21.0",
+    "eslint-plugin-sort-destructure-keys": "2.0.0",
+    "eslint-plugin-sort-keys-fix": "1.1.2",
+    "eslint-plugin-sort-react-dependency-arrays": "1.0.0",
+    "eslint-plugin-sql-template": "3.1.0",
+    "eslint-plugin-ssr-friendly": "1.3.0",
+    "eslint-plugin-storybook": "9.1.8",
+    "eslint-plugin-styled-components-a11y": "2.2.1",
+    "eslint-plugin-switch-case": "3.0.1",
+    "eslint-plugin-tailwindcss": "3.18.2",
+    "eslint-plugin-testing-library": "7.10.0",
+    "eslint-plugin-toml": "0.12.0",
+    "eslint-plugin-toplevel": "1.2.0",
+    "eslint-plugin-total-functions": "7.1.0",
+    "eslint-plugin-tsdoc": "0.4.0",
+    "eslint-plugin-undefined-css-classes": "0.1.4",
+    "eslint-plugin-unicorn": "61.0.2",
+    "eslint-plugin-unused-imports": "4.2.0",
+    "eslint-plugin-usememo-recommendations": "1.0.2",
+    "eslint-plugin-validate-jsx-nesting": "0.1.1",
+    "eslint-plugin-write-good-comments": "0.2.0",
+    "eslint-plugin-xss": "0.1.12",
+    "eslint-plugin-yml": "1.18.0",
+    "eslint-plugin-zod": "1.4.0",
+    "globals": "16.4.0",
+    "jsonc-eslint-parser": "2.4.1",
+    "prettier": "3.6.2",
+    "storybook": "8.3.4",
+    "tailwindcss": "3.4.10",
+    "toml-eslint-parser": "0.10.0",
+    "typescript": "5.9.2",
+    "yaml-eslint-parser": "1.3.0"
+  },
+  "devDependencies": {
+    "@arthurgeron/eslint-plugin-react-usememo": "2.5.0",
+    "@docusaurus/eslint-plugin": "3.9.1",
+    "@eslint-community/eslint-plugin-eslint-comments": "4.5.0",
+    "@eslint-react/eslint-plugin": "2.0.1",
+    "@eslint/compat": "1.4.0",
+    "@eslint/css": "0.11.1",
+    "@eslint/js": "9.36.0",
+    "@eslint/json": "0.13.2",
+    "@eslint/markdown": "7.3.0",
+    "@html-eslint/eslint-plugin": "0.46.2",
+    "@html-eslint/parser": "0.46.2",
+    "@jcoreio/eslint-plugin-implicit-dependencies": "1.2.0",
+    "@metamask/eslint-plugin-design-tokens": "1.1.1",
+    "@microsoft/eslint-plugin-sdl": "1.1.0",
+    "@rushstack/eslint-plugin-security": "0.11.0",
+    "@typescript-eslint/eslint-plugin": "8.44.1",
+    "@typescript-eslint/parser": "8.44.1",
+    "@typescript-eslint/utils": "8.44.1",
+    "@vitest/eslint-plugin": "1.3.13",
+    "eslint": "9.36.0",
+    "eslint-config-flat-gitignore": "2.1.0",
+    "eslint-config-prettier": "10.1.8",
+    "eslint-import-resolver-typescript": "4.4.4",
+    "eslint-mdx": "3.6.2",
+    "eslint-plugin-antfu": "3.1.1",
+    "eslint-plugin-array-func": "5.1.0",
+    "eslint-plugin-better-tailwindcss": "3.7.9",
+    "eslint-plugin-boundaries": "5.0.1",
+    "eslint-plugin-canonical": "5.1.3",
+    "eslint-plugin-clean-code": "0.1.12",
+    "eslint-plugin-clean-timer": "1.0.2",
+    "eslint-plugin-comment-length": "2.2.2",
+    "eslint-plugin-compat": "6.0.2",
+    "eslint-plugin-css-modules": "2.12.0",
+    "eslint-plugin-depend": "1.3.1",
+    "eslint-plugin-deprecation": "3.0.0",
+    "eslint-plugin-etc": "2.0.3",
+    "eslint-plugin-exception-handling": "1.5.4",
+    "eslint-plugin-file-progress": "3.0.2",
+    "eslint-plugin-filename-export": "2.0.0",
+    "eslint-plugin-format-sql": "1.1.1",
+    "eslint-plugin-function-name": "2.0.5",
+    "eslint-plugin-functional": "9.0.2",
+    "eslint-plugin-goodeffects": "1.0.2",
+    "eslint-plugin-granular-selectors": "1.4.0",
+    "eslint-plugin-import-x": "4.16.1",
+    "eslint-plugin-import-zod": "1.2.0",
+    "eslint-plugin-istanbul": "0.1.2",
+    "eslint-plugin-json-schema-validator": "5.4.1",
+    "eslint-plugin-jsonc": "2.20.1",
+    "eslint-plugin-jsx-a11y": "6.10.2",
+    "eslint-plugin-jsx-plus": "0.1.0",
+    "eslint-plugin-listeners": "1.5.1",
+    "eslint-plugin-loadable-imports": "1.0.1",
+    "eslint-plugin-math": "0.13.0",
+    "eslint-plugin-mdx": "3.6.2",
+    "eslint-plugin-module-interop": "0.3.1",
+    "eslint-plugin-n": "17.23.1",
+    "eslint-plugin-neverthrow": "1.1.4",
+    "eslint-plugin-nitpick": "0.12.0",
+    "eslint-plugin-no-barrel-files": "1.2.2",
+    "eslint-plugin-no-constructor-bind": "2.0.4",
+    "eslint-plugin-no-explicit-type-exports": "0.12.1",
+    "eslint-plugin-no-function-declare-after-return": "1.1.0",
+    "eslint-plugin-no-hardcoded-strings": "1.0.0",
+    "eslint-plugin-no-lookahead-lookbehind-regexp": "0.4.0",
+    "eslint-plugin-no-only-tests": "3.3.0",
+    "eslint-plugin-no-secrets": "2.2.1",
+    "eslint-plugin-no-unary-plus": "0.3.1",
+    "eslint-plugin-no-unawaited-dot-catch-throw": "0.1.1",
+    "eslint-plugin-no-unsanitized": "4.1.4",
+    "eslint-plugin-no-use-extend-native": "0.7.2",
+    "eslint-plugin-observers": "1.0.1",
+    "eslint-plugin-package-json": "0.56.3",
+    "eslint-plugin-paths": "1.1.0",
+    "eslint-plugin-perfectionist": "4.15.0",
+    "eslint-plugin-playwright": "2.2.2",
+    "eslint-plugin-prefer-arrow": "1.2.3",
+    "eslint-plugin-prettier": "5.5.4",
+    "eslint-plugin-promise": "7.2.1",
+    "eslint-plugin-react": "7.37.5",
+    "eslint-plugin-react-compiler": "19.1.0-rc.2",
+    "eslint-plugin-react-dom": "2.0.1",
+    "eslint-plugin-react-form-fields": "1.2.22",
+    "eslint-plugin-react-hook-form": "0.3.1",
+    "eslint-plugin-react-hooks": "5.2.0",
+    "eslint-plugin-react-hooks-addons": "0.5.0",
+    "eslint-plugin-react-hooks-extra": "2.0.1",
+    "eslint-plugin-react-naming-convention": "2.0.1",
+    "eslint-plugin-react-perf": "3.3.3",
+    "eslint-plugin-react-prefer-function-component": "4.0.1",
+    "eslint-plugin-react-refresh": "0.4.22",
+    "eslint-plugin-react-require-testid": "1.0.4",
+    "eslint-plugin-react-useeffect": "1.0.12",
+    "eslint-plugin-react-web-api": "2.0.1",
+    "eslint-plugin-redos": "4.5.0",
+    "eslint-plugin-regexp": "2.10.0",
+    "eslint-plugin-require-jsdoc": "1.0.4",
+    "eslint-plugin-safe-jsx": "1.1.1",
+    "eslint-plugin-security": "3.0.1",
+    "eslint-plugin-sonarjs": "3.0.5",
+    "eslint-plugin-sort-class-members": "1.21.0",
+    "eslint-plugin-sort-destructure-keys": "2.0.0",
+    "eslint-plugin-sort-keys-fix": "1.1.2",
+    "eslint-plugin-sort-react-dependency-arrays": "1.0.0",
+    "eslint-plugin-sql-template": "3.1.0",
+    "eslint-plugin-ssr-friendly": "1.3.0",
+    "eslint-plugin-storybook": "9.1.8",
+    "eslint-plugin-styled-components-a11y": "2.2.1",
+    "eslint-plugin-switch-case": "3.0.1",
+    "eslint-plugin-tailwindcss": "3.18.2",
+    "eslint-plugin-testing-library": "7.10.0",
+    "eslint-plugin-toml": "0.12.0",
+    "eslint-plugin-toplevel": "1.2.0",
+    "eslint-plugin-total-functions": "7.1.0",
+    "eslint-plugin-tsdoc": "0.4.0",
+    "eslint-plugin-undefined-css-classes": "0.1.4",
+    "eslint-plugin-unicorn": "61.0.2",
+    "eslint-plugin-unused-imports": "4.2.0",
+    "eslint-plugin-usememo-recommendations": "1.0.2",
+    "eslint-plugin-validate-jsx-nesting": "0.1.1",
+    "eslint-plugin-write-good-comments": "0.2.0",
+    "eslint-plugin-xss": "0.1.12",
+    "eslint-plugin-yml": "1.18.0",
+    "eslint-plugin-zod": "1.4.0",
+    "globals": "16.4.0",
+    "jsonc-eslint-parser": "2.4.1",
+    "prettier": "3.6.2",
+    "storybook": "8.3.4",
+    "tailwindcss": "3.4.10",
+    "toml-eslint-parser": "0.10.0",
+    "typescript": "5.9.2",
+    "yaml-eslint-parser": "1.3.0"
+  },
+  "peerDependenciesMeta": {
+    "@arthurgeron/eslint-plugin-react-usememo": {
+      "optional": false
+    },
+    "@docusaurus/eslint-plugin": {
+      "optional": false
+    },
+    "@eslint-community/eslint-plugin-eslint-comments": {
+      "optional": false
+    },
+    "@eslint-react/eslint-plugin": {
+      "optional": false
+    },
+    "@eslint/compat": {
+      "optional": false
+    },
+    "@eslint/css": {
+      "optional": false
+    },
+    "@eslint/js": {
+      "optional": false
+    },
+    "@eslint/json": {
+      "optional": false
+    },
+    "@eslint/markdown": {
+      "optional": false
+    },
+    "@html-eslint/eslint-plugin": {
+      "optional": false
+    },
+    "@html-eslint/parser": {
+      "optional": false
+    },
+    "@jcoreio/eslint-plugin-implicit-dependencies": {
+      "optional": false
+    },
+    "@metamask/eslint-plugin-design-tokens": {
+      "optional": false
+    },
+    "@microsoft/eslint-plugin-sdl": {
+      "optional": false
+    },
+    "@rushstack/eslint-plugin-security": {
+      "optional": false
+    },
+    "@typescript-eslint/eslint-plugin": {
+      "optional": false
+    },
+    "@typescript-eslint/parser": {
+      "optional": false
+    },
+    "@vitest/eslint-plugin": {
+      "optional": false
+    },
+    "eslint": {
+      "optional": false
+    },
+    "eslint-config-flat-gitignore": {
+      "optional": false
+    },
+    "eslint-config-prettier": {
+      "optional": false
+    },
+    "eslint-import-resolver-typescript": {
+      "optional": false
+    },
+    "eslint-mdx": {
+      "optional": false
+    },
+    "eslint-plugin-antfu": {
+      "optional": false
+    },
+    "eslint-plugin-array-func": {
+      "optional": false
+    },
+    "eslint-plugin-better-tailwindcss": {
+      "optional": false
+    },
+    "eslint-plugin-boundaries": {
+      "optional": false
+    },
+    "eslint-plugin-canonical": {
+      "optional": false
+    },
+    "eslint-plugin-clean-code": {
+      "optional": false
+    },
+    "eslint-plugin-clean-timer": {
+      "optional": false
+    },
+    "eslint-plugin-comment-length": {
+      "optional": false
+    },
+    "eslint-plugin-compat": {
+      "optional": false
+    },
+    "eslint-plugin-css-modules": {
+      "optional": false
+    },
+    "eslint-plugin-depend": {
+      "optional": false
+    },
+    "eslint-plugin-deprecation": {
+      "optional": false
+    },
+    "eslint-plugin-etc": {
+      "optional": false
+    },
+    "eslint-plugin-exception-handling": {
+      "optional": false
+    },
+    "eslint-plugin-file-progress": {
+      "optional": false
+    },
+    "eslint-plugin-filename-export": {
+      "optional": false
+    },
+    "eslint-plugin-format-sql": {
+      "optional": false
+    },
+    "eslint-plugin-function-name": {
+      "optional": false
+    },
+    "eslint-plugin-functional": {
+      "optional": false
+    },
+    "eslint-plugin-goodeffects": {
+      "optional": false
+    },
+    "eslint-plugin-granular-selectors": {
+      "optional": false
+    },
+    "eslint-plugin-import-x": {
+      "optional": false
+    },
+    "eslint-plugin-import-zod": {
+      "optional": false
+    },
+    "eslint-plugin-istanbul": {
+      "optional": false
+    },
+    "eslint-plugin-json-schema-validator": {
+      "optional": false
+    },
+    "eslint-plugin-jsonc": {
+      "optional": false
+    },
+    "eslint-plugin-jsx-a11y": {
+      "optional": false
+    },
+    "eslint-plugin-jsx-plus": {
+      "optional": false
+    },
+    "eslint-plugin-listeners": {
+      "optional": false
+    },
+    "eslint-plugin-loadable-imports": {
+      "optional": false
+    },
+    "eslint-plugin-math": {
+      "optional": false
+    },
+    "eslint-plugin-mdx": {
+      "optional": false
+    },
+    "eslint-plugin-module-interop": {
+      "optional": false
+    },
+    "eslint-plugin-n": {
+      "optional": false
+    },
+    "eslint-plugin-neverthrow": {
+      "optional": false
+    },
+    "eslint-plugin-nitpick": {
+      "optional": false
+    },
+    "eslint-plugin-no-barrel-files": {
+      "optional": false
+    },
+    "eslint-plugin-no-constructor-bind": {
+      "optional": false
+    },
+    "eslint-plugin-no-explicit-type-exports": {
+      "optional": false
+    },
+    "eslint-plugin-no-function-declare-after-return": {
+      "optional": false
+    },
+    "eslint-plugin-no-hardcoded-strings": {
+      "optional": false
+    },
+    "eslint-plugin-no-lookahead-lookbehind-regexp": {
+      "optional": false
+    },
+    "eslint-plugin-no-only-tests": {
+      "optional": false
+    },
+    "eslint-plugin-no-secrets": {
+      "optional": false
+    },
+    "eslint-plugin-no-unary-plus": {
+      "optional": false
+    },
+    "eslint-plugin-no-unawaited-dot-catch-throw": {
+      "optional": false
+    },
+    "eslint-plugin-no-unsanitized": {
+      "optional": false
+    },
+    "eslint-plugin-no-use-extend-native": {
+      "optional": false
+    },
+    "eslint-plugin-observers": {
+      "optional": false
+    },
+    "eslint-plugin-package-json": {
+      "optional": false
+    },
+    "eslint-plugin-paths": {
+      "optional": false
+    },
+    "eslint-plugin-perfectionist": {
+      "optional": false
+    },
+    "eslint-plugin-playwright": {
+      "optional": false
+    },
+    "eslint-plugin-prefer-arrow": {
+      "optional": false
+    },
+    "eslint-plugin-prettier": {
+      "optional": false
+    },
+    "eslint-plugin-promise": {
+      "optional": false
+    },
+    "eslint-plugin-react": {
+      "optional": false
+    },
+    "eslint-plugin-react-compiler": {
+      "optional": false
+    },
+    "eslint-plugin-react-dom": {
+      "optional": false
+    },
+    "eslint-plugin-react-form-fields": {
+      "optional": false
+    },
+    "eslint-plugin-react-hook-form": {
+      "optional": false
+    },
+    "eslint-plugin-react-hooks": {
+      "optional": false
+    },
+    "eslint-plugin-react-hooks-addons": {
+      "optional": false
+    },
+    "eslint-plugin-react-hooks-extra": {
+      "optional": false
+    },
+    "eslint-plugin-react-naming-convention": {
+      "optional": false
+    },
+    "eslint-plugin-react-perf": {
+      "optional": false
+    },
+    "eslint-plugin-react-prefer-function-component": {
+      "optional": false
+    },
+    "eslint-plugin-react-refresh": {
+      "optional": false
+    },
+    "eslint-plugin-react-require-testid": {
+      "optional": false
+    },
+    "eslint-plugin-react-useeffect": {
+      "optional": false
+    },
+    "eslint-plugin-react-web-api": {
+      "optional": false
+    },
+    "eslint-plugin-redos": {
+      "optional": false
+    },
+    "eslint-plugin-regexp": {
+      "optional": false
+    },
+    "eslint-plugin-require-jsdoc": {
+      "optional": false
+    },
+    "eslint-plugin-safe-jsx": {
+      "optional": false
+    },
+    "eslint-plugin-security": {
+      "optional": false
+    },
+    "eslint-plugin-sonarjs": {
+      "optional": false
+    },
+    "eslint-plugin-sort-class-members": {
+      "optional": false
+    },
+    "eslint-plugin-sort-destructure-keys": {
+      "optional": false
+    },
+    "eslint-plugin-sort-keys-fix": {
+      "optional": false
+    },
+    "eslint-plugin-sort-react-dependency-arrays": {
+      "optional": false
+    },
+    "eslint-plugin-sql-template": {
+      "optional": false
+    },
+    "eslint-plugin-ssr-friendly": {
+      "optional": false
+    },
+    "eslint-plugin-storybook": {
+      "optional": false
+    },
+    "eslint-plugin-styled-components-a11y": {
+      "optional": false
+    },
+    "eslint-plugin-switch-case": {
+      "optional": false
+    },
+    "eslint-plugin-tailwindcss": {
+      "optional": false
+    },
+    "eslint-plugin-testing-library": {
+      "optional": false
+    },
+    "eslint-plugin-toml": {
+      "optional": false
+    },
+    "eslint-plugin-toplevel": {
+      "optional": false
+    },
+    "eslint-plugin-total-functions": {
+      "optional": false
+    },
+    "eslint-plugin-tsdoc": {
+      "optional": false
+    },
+    "eslint-plugin-undefined-css-classes": {
+      "optional": false
+    },
+    "eslint-plugin-unicorn": {
+      "optional": false
+    },
+    "eslint-plugin-unused-imports": {
+      "optional": false
+    },
+    "eslint-plugin-usememo-recommendations": {
+      "optional": false
+    },
+    "eslint-plugin-validate-jsx-nesting": {
+      "optional": false
+    },
+    "eslint-plugin-write-good-comments": {
+      "optional": false
+    },
+    "eslint-plugin-xss": {
+      "optional": false
+    },
+    "eslint-plugin-yml": {
+      "optional": false
+    },
+    "eslint-plugin-zod": {
+      "optional": false
+    },
+    "globals": {
+      "optional": false
+    },
+    "jsonc-eslint-parser": {
+      "optional": false
+    },
+    "toml-eslint-parser": {
+      "optional": false
+    },
+    "yaml-eslint-parser": {
+      "optional": false
+    },
+    "prettier": {
+      "optional": false
+    },
+    "typescript": {
+      "optional": false
+    }
+  }
+}
