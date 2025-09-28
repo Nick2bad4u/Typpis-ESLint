@@ -1,6 +1,6 @@
 import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import createTyppisConfig from "eslint-config-Typpis-ESLint/create-config";
+import createTyppisConfig from "eslint-config-typpis-eslint/create-config";
 
 const rootDir = dirname(fileURLToPath(import.meta.url));
 

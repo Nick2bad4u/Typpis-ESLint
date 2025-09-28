@@ -134,7 +134,7 @@ const pkgVersions = {
 };
 
 const pkg = {
-  name: "eslint-config-Typpis-ESLint",
+  name: "eslint-config-typpis-eslint",
   version: "0.1.0",
   description:
     "Production-ready ESLint flat config that bundles the full Typpis plugin stack for TypeScript, React, and Electron apps.",

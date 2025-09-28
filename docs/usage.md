@@ -3,7 +3,7 @@
 ## Install the preset and peers
 
 ```bash
-npm install --save-dev eslint-config-Typpis-ESLint
+npm install --save-dev eslint-config-typpis-eslint
 node -e "const peers=require('./package.json').peerDependencies; console.log('npm install --save-dev ' + Object.entries(peers).map(([name, version]) => `${name}@${version}`).join(' '));"
 ```
 
@@ -14,7 +14,7 @@ Run the printed command to keep every peer dependency in sync with the published
 ```js
 import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import createTyppisConfig from "eslint-config-Typpis-ESLint/create-config";
+import createTyppisConfig from "eslint-config-typpis-eslint/create-config";
 
 const rootDir = dirname(fileURLToPath(import.meta.url));
 

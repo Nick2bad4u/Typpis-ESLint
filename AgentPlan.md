@@ -2,7 +2,7 @@ You are an expert TypeScript/Node/Electron ESLint engineer. Build a fully sharea
 
 ## Objective
 
-- Ship a production-ready package named `eslint-config-Typpis-ESLint`
+- Ship a production-ready package named `eslint-config-typpis-eslint`
 - Consume **every plugin and parser in the provided import list** without omission or renaming.
 - Deliver clear documentation, CI, and tests so consumers can install, extend, and publish the preset.
 - Typescript used where possible.

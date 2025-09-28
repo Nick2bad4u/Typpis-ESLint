@@ -7,7 +7,7 @@ An opinionated ESLint flat configuration that composes the full Typpis plugin st
 Install the preset along with the peer dependencies that match the versions published in `peerDependencies`.
 
 ```bash
-npm install --save-dev eslint-config-Typpis-ESLint
+npm install --save-dev eslint-config-typpis-eslint
 ```
 
 For monorepos replicate the versions in `peerDependencies` for each workspace. A quick way to produce the full installation command is:
@@ -20,14 +20,14 @@ Run the printed command with your preferred package manager (`npm`, `pnpm`, or `
 
 ## Usage
 
-The presets resolve asynchronously because they dynamically load the Typpis plugin suite. The easiest way to consume them is through the factory helper exported at `eslint-config-Typpis-ESLint/create-config`.
+The presets resolve asynchronously because they dynamically load the Typpis plugin suite. The easiest way to consume them is through the factory helper exported at `eslint-config-typpis-eslint/create-config`.
 
 ### Quick start with `eslint.config.mjs`
 
 ```js
 import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
-import createTyppisConfig from "eslint-config-Typpis-ESLint/create-config";
+import createTyppisConfig from "eslint-config-typpis-eslint/create-config";
 
 const rootDir = dirname(fileURLToPath(import.meta.url));
 
@@ -45,7 +45,7 @@ The helper clones the recommended preset, injects your `parserOptions.project` v
 If you prefer to import the preset modules yourself, remember that the exports resolve to promises:
 
 ```js
-import typpisRecommended from "eslint-config-Typpis-ESLint/recommended";
+import typpisRecommended from "eslint-config-typpis-eslint/recommended";
 
 export default await typpisRecommended;
 ```
@@ -53,7 +53,7 @@ export default await typpisRecommended;
 The strict variant follows the same pattern:
 
 ```js
-import typpisAll from "eslint-config-Typpis-ESLint/all";
+import typpisAll from "eslint-config-typpis-eslint/all";
 
 export default await typpisAll;
 ```
