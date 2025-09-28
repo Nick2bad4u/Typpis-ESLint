@@ -25,16 +25,16 @@ The presets resolve asynchronously because they dynamically load the Typpis plug
 ### Quick start with `eslint.config.mjs`
 
 ```js
-import { dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
-import createTyppisConfig from 'eslint-config-Typpis-ESLint/create-config';
+import { dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+import createTyppisConfig from "eslint-config-Typpis-ESLint/create-config";
 
 const rootDir = dirname(fileURLToPath(import.meta.url));
 
 export default await createTyppisConfig({
-    tsconfigRootDir: rootDir,
-    tsconfigPath: ['tsconfig.json', 'packages/*/tsconfig.json'],
-    ignores: ['**/dist/**', '**/coverage/**']
+  tsconfigRootDir: rootDir,
+  tsconfigPath: ["tsconfig.json", "packages/*/tsconfig.json"],
+  ignores: ["**/dist/**", "**/coverage/**"],
 });
 ```
 
@@ -45,7 +45,7 @@ The helper clones the recommended preset, injects your `parserOptions.project` v
 If you prefer to import the preset modules yourself, remember that the exports resolve to promises:
 
 ```js
-import typpisRecommended from 'eslint-config-Typpis-ESLint/recommended';
+import typpisRecommended from "eslint-config-Typpis-ESLint/recommended";
 
 export default await typpisRecommended;
 ```
@@ -53,7 +53,7 @@ export default await typpisRecommended;
 The strict variant follows the same pattern:
 
 ```js
-import typpisAll from 'eslint-config-Typpis-ESLint/all';
+import typpisAll from "eslint-config-Typpis-ESLint/all";
 
 export default await typpisAll;
 ```

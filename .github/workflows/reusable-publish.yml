@@ -1,172 +1,172 @@
 name: Publish Package
 
 on:
-    workflow_call:
-        inputs:
-            version:
-                description: "Package version when manually dispatched."
-                type: string
-                required: false
-            npm_tag:
-                description: "npm dist-tag for publication."
-                type: string
-                required: false
-                default: latest
-            dry_run:
-                description: "Skip npm publish and GitHub release creation."
-                type: boolean
-                required: false
-                default: false
-        secrets:
-            NPM_TOKEN:
-                required: true
+  workflow_call:
+    inputs:
+      version:
+        description: "Package version when manually dispatched."
+        type: string
+        required: false
+      npm_tag:
+        description: "npm dist-tag for publication."
+        type: string
+        required: false
+        default: latest
+      dry_run:
+        description: "Skip npm publish and GitHub release creation."
+        type: boolean
+        required: false
+        default: false
+    secrets:
+      NPM_TOKEN:
+        required: true
 
 concurrency:
-    group: publish-${{ github.ref_name }}
-    cancel-in-progress: false
+  group: publish-${{ github.ref_name }}
+  cancel-in-progress: false
 
 permissions:
-    contents: write
-    id-token: write
+  contents: write
+  id-token: write
 
 jobs:
-    publish:
-        name: Publish to npm
-        runs-on: ubuntu-latest
-        if: github.repository_owner == 'Nick2bad4u'
-        steps:
-            - name: Checkout repository
-              uses: actions/checkout@v4
-              with:
-                  fetch-depth: 0
+  publish:
+    name: Publish to npm
+    runs-on: ubuntu-latest
+    if: github.repository_owner == 'Nick2bad4u'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-            - name: Use Node.js
-              uses: actions/setup-node@v4
-              with:
-                  node-version-file: ".node-version"
-                  registry-url: "https://registry.npmjs.org"
-                  cache: "npm"
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: ".node-version"
+          registry-url: "https://registry.npmjs.org"
+          cache: "npm"
 
-            - name: Install dependencies
-              run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-            - name: Lint (recommended)
-              run: npm run lint
+      - name: Lint (recommended)
+        run: npm run lint
 
-            - name: Lint (strict)
-              run: npm run lint:all
+      - name: Lint (strict)
+        run: npm run lint:all
 
-            - name: Run tests
-              run: npm test
+      - name: Run tests
+        run: npm test
 
-            - name: Determine release metadata
-              id: vars
-              env:
-                  GITHUB_EVENT_NAME: ${{ github.event_name }}
-                  GITHUB_REF_NAME: ${{ github.ref_name }}
-                  INPUT_VERSION: ${{ inputs.version }}
-                  INPUT_NPM_TAG: ${{ inputs.npm_tag }}
-                  INPUT_DRY_RUN: ${{ inputs.dry_run }}
-              run: |
-                  set -euo pipefail
-                  PACKAGE_VERSION=$(node -p "require('./package.json').version")
-                  echo "package_version=$PACKAGE_VERSION" >> "$GITHUB_OUTPUT"
+      - name: Determine release metadata
+        id: vars
+        env:
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
+          GITHUB_REF_NAME: ${{ github.ref_name }}
+          INPUT_VERSION: ${{ inputs.version }}
+          INPUT_NPM_TAG: ${{ inputs.npm_tag }}
+          INPUT_DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          set -euo pipefail
+          PACKAGE_VERSION=$(node -p "require('./package.json').version")
+          echo "package_version=$PACKAGE_VERSION" >> "$GITHUB_OUTPUT"
 
-                  if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ]; then
-                    if [ -z "${INPUT_VERSION}" ]; then
-                      echo 'The version input is required when using workflow_dispatch.' >&2
-                      exit 1
-                    fi
+          if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ]; then
+            if [ -z "${INPUT_VERSION}" ]; then
+              echo 'The version input is required when using workflow_dispatch.' >&2
+              exit 1
+            fi
 
-                    if [ "$INPUT_VERSION" != "$PACKAGE_VERSION" ]; then
-                      echo "Input version $INPUT_VERSION does not match package.json version $PACKAGE_VERSION." >&2
-                      exit 1
-                    }
+            if [ "$INPUT_VERSION" != "$PACKAGE_VERSION" ]; then
+              echo "Input version $INPUT_VERSION does not match package.json version $PACKAGE_VERSION." >&2
+              exit 1
+            }
 
-                    RELEASE_TAG="v$INPUT_VERSION"
-                  else
-                    RELEASE_TAG="$GITHUB_REF_NAME"
-                    if [ "$RELEASE_TAG" != "v$PACKAGE_VERSION" ]; then
-                      echo "Git tag $RELEASE_TAG does not match package.json version $PACKAGE_VERSION." >&2
-                      exit 1
-                    fi
-                  fi
+            RELEASE_TAG="v$INPUT_VERSION"
+          else
+            RELEASE_TAG="$GITHUB_REF_NAME"
+            if [ "$RELEASE_TAG" != "v$PACKAGE_VERSION" ]; then
+              echo "Git tag $RELEASE_TAG does not match package.json version $PACKAGE_VERSION." >&2
+              exit 1
+            fi
+          fi
 
-                  if [ "${INPUT_DRY_RUN}" = "true" ]; then
-                    echo 'dry_run=true' >> "$GITHUB_OUTPUT"
-                  else
-                    echo 'dry_run=false' >> "$GITHUB_OUTPUT"
-                  fi
+          if [ "${INPUT_DRY_RUN}" = "true" ]; then
+            echo 'dry_run=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'dry_run=false' >> "$GITHUB_OUTPUT"
+          fi
 
-                  if [ -n "${INPUT_NPM_TAG}" ]; then
-                    DIST_TAG="$INPUT_NPM_TAG"
-                  else
-                    DIST_TAG='latest'
-                  fi
+          if [ -n "${INPUT_NPM_TAG}" ]; then
+            DIST_TAG="$INPUT_NPM_TAG"
+          else
+            DIST_TAG='latest'
+          fi
 
-                  echo "release_tag=$RELEASE_TAG" >> "$GITHUB_OUTPUT"
-                  echo "dist_tag=$DIST_TAG" >> "$GITHUB_OUTPUT"
+          echo "release_tag=$RELEASE_TAG" >> "$GITHUB_OUTPUT"
+          echo "dist_tag=$DIST_TAG" >> "$GITHUB_OUTPUT"
 
-            - name: Inspect published artifact
-              run: npm pack --dry-run
+      - name: Inspect published artifact
+        run: npm pack --dry-run
 
-            - name: Publish package
-              if: steps.vars.outputs.dry_run != 'true'
-              env:
-                  # actionlint: allow-secrets NPM_TOKEN
-                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-                  NPM_DIST_TAG: ${{ steps.vars.outputs.dist_tag }}
-              run: |
-                  set -euo pipefail
-                  if [ -z "$NPM_TOKEN" ]; then
-                    echo 'NPM_TOKEN secret is not configured. Set it in repository secrets.' >&2
-                    exit 1
-                  fi
-                  npm config set //registry.npmjs.org/:_authToken "$NPM_TOKEN"
-                  npm publish --access public --tag "$NPM_DIST_TAG" --provenance
+      - name: Publish package
+        if: steps.vars.outputs.dry_run != 'true'
+        env:
+          # actionlint: allow-secrets NPM_TOKEN
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_DIST_TAG: ${{ steps.vars.outputs.dist_tag }}
+        run: |
+          set -euo pipefail
+          if [ -z "$NPM_TOKEN" ]; then
+            echo 'NPM_TOKEN secret is not configured. Set it in repository secrets.' >&2
+            exit 1
+          fi
+          npm config set //registry.npmjs.org/:_authToken "$NPM_TOKEN"
+          npm publish --access public --tag "$NPM_DIST_TAG" --provenance
 
-            - name: Create GitHub release
-              if: steps.vars.outputs.dry_run != 'true'
-              uses: actions/github-script@v7
-              env:
-                  RELEASE_TAG: ${{ steps.vars.outputs.release_tag }}
-                  TARGET_COMMIT: ${{ github.sha }}
-              with:
-                  script: |
-                      const tag = process.env.RELEASE_TAG;
-                      const owner = context.repo.owner;
-                      const repo = context.repo.repo;
+      - name: Create GitHub release
+        if: steps.vars.outputs.dry_run != 'true'
+        uses: actions/github-script@v7
+        env:
+          RELEASE_TAG: ${{ steps.vars.outputs.release_tag }}
+          TARGET_COMMIT: ${{ github.sha }}
+        with:
+          script: |
+            const tag = process.env.RELEASE_TAG;
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
 
-                      const releases = await github.paginate(github.rest.repos.listReleases, {
-                        owner,
-                        repo
-                      });
+            const releases = await github.paginate(github.rest.repos.listReleases, {
+              owner,
+              repo
+            });
 
-                      if (releases.some((release) => release.tag_name === tag)) {
-                        core.info(`Release ${tag} already exists. Skipping creation.`);
-                        return;
-                      }
+            if (releases.some((release) => release.tag_name === tag)) {
+              core.info(`Release ${tag} already exists. Skipping creation.`);
+              return;
+            }
 
-                      let body = '';
-                      try {
-                        const notes = await github.rest.repos.generateReleaseNotes({
-                          owner,
-                          repo,
-                          tag_name: tag,
-                          target_commitish: process.env.TARGET_COMMIT
-                        });
-                        body = notes.data.body ?? '';
-                      } catch (error) {
-                        core.warning(`Could not generate release notes automatically: ${error.message}`);
-                      }
+            let body = '';
+            try {
+              const notes = await github.rest.repos.generateReleaseNotes({
+                owner,
+                repo,
+                tag_name: tag,
+                target_commitish: process.env.TARGET_COMMIT
+              });
+              body = notes.data.body ?? '';
+            } catch (error) {
+              core.warning(`Could not generate release notes automatically: ${error.message}`);
+            }
 
-                      await github.rest.repos.createRelease({
-                        owner,
-                        repo,
-                        tag_name: tag,
-                        name: tag,
-                        body,
-                        draft: false,
-                        prerelease: false,
-                        target_commitish: process.env.TARGET_COMMIT
-                      });
+            await github.rest.repos.createRelease({
+              owner,
+              repo,
+              tag_name: tag,
+              name: tag,
+              body,
+              draft: false,
+              prerelease: false,
+              target_commitish: process.env.TARGET_COMMIT
+            });

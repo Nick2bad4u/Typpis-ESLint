@@ -12,16 +12,16 @@ Run the printed command to keep every peer dependency in sync with the published
 ## Authoring `eslint.config.mjs`
 
 ```js
-import { dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
-import createTyppisConfig from 'eslint-config-Typpis-ESLint/create-config';
+import { dirname } from "node:path";
+import { fileURLToPath } from "node:url";
+import createTyppisConfig from "eslint-config-Typpis-ESLint/create-config";
 
 const rootDir = dirname(fileURLToPath(import.meta.url));
 
 export default await createTyppisConfig({
-    tsconfigRootDir: rootDir,
-    tsconfigPath: ['tsconfig.json', 'packages/*/tsconfig.json'],
-    ignores: ['**/dist/**', '**/coverage/**']
+  tsconfigRootDir: rootDir,
+  tsconfigPath: ["tsconfig.json", "packages/*/tsconfig.json"],
+  ignores: ["**/dist/**", "**/coverage/**"],
 });
 ```
 
@@ -29,9 +29,9 @@ export default await createTyppisConfig({
 
 ```js
 export default await createTyppisConfig({
-    preset: 'all',
-    tsconfigRootDir: dirname(fileURLToPath(import.meta.url)),
-    tsconfigPath: ['tsconfig.json']
+  preset: "all",
+  tsconfigRootDir: dirname(fileURLToPath(import.meta.url)),
+  tsconfigPath: ["tsconfig.json"],
 });
 ```
 

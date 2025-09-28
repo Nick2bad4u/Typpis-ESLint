@@ -1,3 +1,3 @@
 import eslintReact from "@eslint-react/eslint-plugin";
 
-console.log('loaded', typeof eslintReact);
+console.log("loaded", typeof eslintReact);

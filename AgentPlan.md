@@ -1,6 +1,7 @@
 You are an expert TypeScript/Node/Electron ESLint engineer. Build a fully shareable ESLint configuration npm package that wraps the entire plugin import list below into an installable preset that anyone can extend.
 
 ## Objective
+
 - Ship a production-ready package named `eslint-config-Typpis-ESLint`
 - Consume **every plugin and parser in the provided import list** without omission or renaming.
 - Deliver clear documentation, CI, and tests so consumers can install, extend, and publish the preset.
@@ -8,6 +9,7 @@ You are an expert TypeScript/Node/Electron ESLint engineer. Build a fully sharea
 - Only support new eslint 9 flat configs.
 
 ## Global Requirements
+
 - Research every plugin to understand recommended usage, options, and conflicts; reflect that knowledge in configs/comments/docs. If a plugin needs manual setup, document it and wire what you can programmatically.
 - Assume Node.js LTS (≥18). Use CommonJS for configs (`index.cjs` or `index.js`) unless you add tooling for ESM; document import usage for both CJS and ESM consumers.
 - Enforce Prettier compatibility; explain when to enable `eslint-plugin-prettier` vs running Prettier separately.
@@ -18,8 +20,9 @@ You are an expert TypeScript/Node/Electron ESLint engineer. Build a fully sharea
 - Include `globals` support where relevant (use the `globals` package).
 
 ## Deliverables (output each file with the required file block syntax)
+
 1. `package.json` — include name/description/version placeholder, scripts (`lint`, `lint:all`, `test`, `check:plugins`, `prepare`, etc.), repository/license placeholders, engines, and **explicit dependencies, devDependencies, and peerDependencies listing every plugin/parser/import resolver**. Pin versions where possible; if you use `"latest"`, mark it clearly (e.g., `"eslint-plugin-foo": "latest // latest"`). Separate which entries are dependencies vs peers and explain your rationale in README.
-2. ````markdown name=README.md```` — comprehensive guide covering:
+2. `markdown name=README.md` — comprehensive guide covering:
    - Overview and motivation.
    - Exact list of included plugins (names + npm scopes, matching the import list order).
    - Installation instructions with npm, pnpm, and yarn commands that install the config plus every peer dependency in one line.
@@ -29,15 +32,15 @@ You are an expert TypeScript/Node/Electron ESLint engineer. Build a fully sharea
    - Conflict resolution notes (where `fixupPluginRules` or overrides are applied).
    - Import resolver guidance using `createTypeScriptImportResolver` and TypeScript path mapping instructions.
    - Publishing steps to npm (`npm version`, `npm publish`, tagging releases) and troubleshooting tips (parser errors, missing peers, MDX parser issues, etc.).
-3. ```name=index.js``` (or `.cjs`) — export `{ configs: { recommended, all } }` so consumers can extend via `"eslint-config-<name>/recommended"` or `/all`. Wire the configs by requiring the files under `lib/configs/`.
-4. ```name=lib/configs/recommended.js``` — curated base config enabling appropriate recommended/essential rule sets from each plugin, using overrides per file type (JS/JSX/TS/TSX/MDX/MD/HTML/JSON/JSONC/YAML/TOML). Integrate `eslint-config-prettier` at the end, rely on `fixupPluginRules` where helpful, and add comments for non-obvious rule decisions.
-5. ```name=lib/configs/all.js``` — strict superset of `recommended` turning on aggressive rules across plugins (document hyper-strict choices and suppressions). Ensure it still composes cleanly with `recommended` (e.g., spread and extend).
-6. ```name=.eslintrc.example.js``` — demonstrates consuming the preset for both JavaScript- and TypeScript-first projects, including parser settings, `parserOptions.project`, `settings['import/resolver']` with `createTypeScriptImportResolver`, and overrides for MDX/HTML/etc.
-7. ````markdown name=docs/USAGE.md```` — quickstart with install command, sample `.eslintrc.js`, enabling TypeScript + MDX + HTML overrides, and an example `package.json` `"eslintConfig"` block.
-8. ````markdown name=CHANGELOG.md```` — initial release entry (e.g., `0.1.0`) summarizing what’s included.
-9. ````markdown name=LICENSE```` — MIT license text with placeholders (year, author).
-10. ```name=.npmignore``` *or* specify a `files` array in `package.json` to exclude test fixtures/docs you don’t want published (retain configs/docs needed by consumers).
-11. ```name=.github/workflows/ci.yml``` — GitHub Actions workflow (Node LTS matrix or single LTS) that:
+3. `name=index.js` (or `.cjs`) — export `{ configs: { recommended, all } }` so consumers can extend via `"eslint-config-<name>/recommended"` or `/all`. Wire the configs by requiring the files under `lib/configs/`.
+4. `name=lib/configs/recommended.js` — curated base config enabling appropriate recommended/essential rule sets from each plugin, using overrides per file type (JS/JSX/TS/TSX/MDX/MD/HTML/JSON/JSONC/YAML/TOML). Integrate `eslint-config-prettier` at the end, rely on `fixupPluginRules` where helpful, and add comments for non-obvious rule decisions.
+5. `name=lib/configs/all.js` — strict superset of `recommended` turning on aggressive rules across plugins (document hyper-strict choices and suppressions). Ensure it still composes cleanly with `recommended` (e.g., spread and extend).
+6. `name=.eslintrc.example.js` — demonstrates consuming the preset for both JavaScript- and TypeScript-first projects, including parser settings, `parserOptions.project`, `settings['import/resolver']` with `createTypeScriptImportResolver`, and overrides for MDX/HTML/etc.
+7. `markdown name=docs/USAGE.md` — quickstart with install command, sample `.eslintrc.js`, enabling TypeScript + MDX + HTML overrides, and an example `package.json` `"eslintConfig"` block.
+8. `markdown name=CHANGELOG.md` — initial release entry (e.g., `0.1.0`) summarizing what’s included.
+9. `markdown name=LICENSE` — MIT license text with placeholders (year, author).
+10. `name=.npmignore` _or_ specify a `files` array in `package.json` to exclude test fixtures/docs you don’t want published (retain configs/docs needed by consumers).
+11. `name=.github/workflows/ci.yml` — GitHub Actions workflow (Node LTS matrix or single LTS) that:
     - uses `actions/setup-node` with npm cache,
     - runs `npm ci`,
     - runs `npm run lint` (recommended preset) and fails on any errors,
@@ -45,10 +48,11 @@ You are an expert TypeScript/Node/Electron ESLint engineer. Build a fully sharea
     - executes a smoke test `node -e "console.log(require('./').configs.recommended ? 'OK' : 'MISSING')"`,
     - runs `eslint --print-config tests/fixtures/example.tsx` and greps for several plugin names (spell out which ones, e.g., `eslint-plugin-react`, `eslint-plugin-import-x`, `eslint-plugin-mdx`, `eslint-plugin-unicorn`, `@typescript-eslint`),
     - runs `npm test`.
-12. ```name=tests/fixtures/example.js```, ```example.jsx```, ```example.ts```, ```example.tsx```, ```example.mdx```, ```example.md```, ```example.html```, ```example.json```, ```example.jsonc```, ```example.yaml```, ```example.yml```, ```example.toml```, and ```name=tests/fixtures/tsconfig.json``` — minimal-but-valid content for each file type to exercise all parsers/plugins (TS fixtures should compile with the tsconfig). Ensure fixtures pass `recommended` but may trigger `all`-level warnings/errors.
+12. `name=tests/fixtures/example.js`, `example.jsx`, `example.ts`, `example.tsx`, `example.mdx`, `example.md`, `example.html`, `example.json`, `example.jsonc`, `example.yaml`, `example.yml`, `example.toml`, and `name=tests/fixtures/tsconfig.json` — minimal-but-valid content for each file type to exercise all parsers/plugins (TS fixtures should compile with the tsconfig). Ensure fixtures pass `recommended` but may trigger `all`-level warnings/errors.
 13. Any helper scripts under `tests/` (e.g., utilities for plugin coverage checks) as needed.
 
 ## Implementation Details & Constraints
+
 - **Use every plugin** listed below in the configs and dependency lists; do not delete or rename imports. If a plugin can’t be automatically enabled, leave a clarifying comment and document manual steps.
 - Configure parsers:
   - `@typescript-eslint/parser` with `parserOptions.project` pointing to `tests/fixtures/tsconfig.json`.
@@ -67,6 +71,7 @@ You are an expert TypeScript/Node/Electron ESLint engineer. Build a fully sharea
 - Add a `prepare` script (even if it just runs `npm run lint`) so `npm publish` works smoothly.
 
 ## Testing & QA Requirements
+
 - `npm run lint` must lint fixtures with the `recommended` config and exit 0.
 - `npm run lint:all` (or similar) must run ESLint with the `all` config. You may allow it to exit non-zero but log results; describe the behavior in README.
 - `npm test` must:
@@ -77,8 +82,9 @@ You are an expert TypeScript/Node/Electron ESLint engineer. Build a fully sharea
 - Document how to run tests locally (`npm run lint`, `npm run lint:all`, `npm test`) in README and `docs/USAGE.md`.
 
 ## Output Formatting
-- For JavaScript/JSON/YAML/TOML/etc., use ```name=path/to/file.ext``` fenced blocks.
-- For Markdown, use the 4-backtick header form: ````markdown name=README.md``` ... ````.
+
+- For JavaScript/JSON/YAML/TOML/etc., use `name=path/to/file.ext` fenced blocks.
+- For Markdown, use the 4-backtick header form: `markdown name=README.md``` ... `.
 - Do not include extra commentary outside the required files.
 - The README must clearly indicate which dependencies are pinned versus `"latest"`.
 - The final response must end with:
@@ -90,7 +96,9 @@ You are an expert TypeScript/Node/Electron ESLint engineer. Build a fully sharea
 If you cannot finish the entire task in one response, ask me to continue, and you will pick up where you left off.
 
 ## Plugin Import List (use exactly as provided)
+
 Plugin import list (the agent must use this exact list; do not remove or alter):
+
 ```typescript
 import pluginUseMemo2 from "@arthurgeron/eslint-plugin-react-usememo";
 import pluginDocusaurus from "@docusaurus/eslint-plugin";

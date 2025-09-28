@@ -835,3 +835,4 @@ dist-playwright/
 !lib/
 *storybook.log
 storybook-static
+.prettier-cache
